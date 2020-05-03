@@ -1,0 +1,256 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class inventory : MonoBehaviour
+{
+    public enum CraftableItem { RECIPE1, RECIPE2, RECIPE3, RECIPE4, RECIPE5};
+    public enum ResourceItem { ITEM1, ITEM2 ,ITEM3 , ITEM4,ITEM5, ITEM6, ITEM7, ITEM8, ITEM9, ITEM10,ITEM11,ITEM12,ITEM13,ITEM14};
+
+    // sets up ints for item collection
+    public int item1;
+    public int item2;
+    public int item3;
+    public int item4;
+    public int item5;
+    public int item6;
+    public int item7;
+    public int item8;
+    public int item9;
+    public int item10;
+    public int item11;
+    public int item12;
+    public int item13;
+    public int item14;
+
+    // text for inventory count
+    public Text item1Text;
+    public Text item2Text;
+    public Text item3Text;
+    public Text item4Text;
+    public Text item5Text;
+    public Text item6Text;
+    public Text item7Text;
+    public Text item8Text;
+    public Text item9Text;
+    public Text item10Text;
+    public Text item11Text;
+    public Text item12Text;
+    public Text item13Text;
+    public Text item14Text;
+    
+
+
+    // for recipe creation
+    public bool hasRecipe1;
+    public bool hasRecipe2;
+    public bool hasRecipe3;
+    public bool hasRecipe4;
+    public bool hasRecipe5;
+
+
+    // creates recipe buttom gameobects
+    public GameObject r1Button;
+    public GameObject r2Button;
+    public GameObject r3Button;
+    public GameObject r4Button;
+    public GameObject r5Button;
+
+    //food icons for recipe player makes
+    public GameObject food1Icon;
+    public GameObject food2icon;
+    public GameObject food3Icon;
+    public GameObject food4Icon;
+    public GameObject food5Icon;
+
+    public GameObject sushi;
+    public GameObject hamburger;
+    public GameObject omlette;
+    public GameObject chili;
+    public GameObject at;
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Updates count of items in inventory
+    void Update()
+    {
+        item1Text.text = item1.ToString();
+        item2Text.text = item2.ToString();
+        item3Text.text = item3.ToString();
+        item4Text.text = item4.ToString();
+        item5Text.text = item5.ToString();
+        item6Text.text = item6.ToString();
+        item7Text.text = item7.ToString();
+        item8Text.text = item8.ToString();
+        item9Text.text = item9.ToString();
+        item10Text.text = item10.ToString();
+        item11Text.text = item11.ToString();
+        item12Text.text = item12.ToString();
+        item13Text.text = item13.ToString();
+        item14Text.text = item14.ToString();
+
+
+
+
+
+
+
+    }
+    // makes button functions 
+    public void CraftByInt(int craftInt)
+    {
+        // for recipe one button
+        if (craftInt == 1)
+        {
+            // if the recipe is made
+            if (Craft(CraftableItem.RECIPE1))
+            {
+                // shows recipe icon
+                food1Icon.SetActive(true);
+                //puts text window up
+                sushi.SetActive(true);
+                //destroys button
+                Destroy(r1Button);
+            }
+        }
+        // for recipe 2
+        else if(craftInt == 2)
+        {
+            // if the recipe is made
+            if (Craft(CraftableItem.RECIPE2))
+            {
+                // makes icon viewable for recipe created
+                food2icon.SetActive(true);
+                // puts text window up
+                hamburger.SetActive(true);
+                
+
+                // destroys recipe button
+                Destroy(r2Button);
+            }
+        }
+        // for recipe 3 
+        else if(craftInt == 3)
+        {
+            // if recpe three is craftable
+            if (Craft(CraftableItem.RECIPE3))
+            {
+                // shows food created
+                food3Icon.SetActive(true);
+                //puts text window up
+                omlette.SetActive(true);
+              // detroys recipe button
+                Destroy(r3Button);
+            }
+        }
+        else if (craftInt == 4)
+        {
+            // if recpe three is craftable
+            if (Craft(CraftableItem.RECIPE4))
+            {
+                // shows food created
+                food4Icon.SetActive(true);
+                //puts text window up
+                chili.SetActive(true);
+                // detroys recipe button
+                Destroy(r4Button);
+            }
+        }
+        else if (craftInt == 5)
+        {
+            // if recpe three is craftable
+            if (Craft(CraftableItem.RECIPE5))
+            {
+                // shows food created
+                food5Icon.SetActive(true);
+                //puts text window up
+                at.SetActive(true);
+                // detroys recipe button
+                Destroy(r5Button);
+            }
+        }
+
+    }
+    public bool Craft(CraftableItem craftable)
+    {
+        bool success = false;
+        // all of this are the ingredients needed per recipe 
+        switch (craftable)
+        {
+            //sushi
+            case CraftableItem.RECIPE1:
+                if(item1 >=3 && item2 >= 3)
+                {
+                    success = true;
+                    item1 -= 3;// 3 rice bowls 
+                    item2 -= 3; // 3 shrimp
+                    hasRecipe1 = true;
+                }
+                break;
+                // burger
+            case CraftableItem.RECIPE2:
+                if(item4 >= 2 && item5>=1 && item6 >=3 && item9>=3 && item11 >= 6)
+                {
+                    success = true;
+                    item4 -= 2; // 2 tomatos
+                    item5 -= 1;
+                    item6 -= 3;
+                    item9 -= 3;
+                    item10 -= 3;
+                    item11 -= 6;
+                    hasRecipe2 = true;
+                }
+                //omelette
+                break;
+            case CraftableItem.RECIPE3:
+                if(item3>=2 && item7 >=1 && item8 >= 4 && item10>= 4)
+                {
+                    success = true;
+                    item3 -= 2;
+                    item7 -= 1;
+                    item8 -= 4;
+                    item10 -= 4;
+                 
+                    hasRecipe3 = true;
+                }
+                break;
+                //chili
+            case CraftableItem.RECIPE4:
+                if (item12 >= 2 && item13 >= 3 && item14 >= 4)
+                {
+                    success = true;
+                    item12 -= 2;
+                    item13 -= 3;
+                    item14 -= 4;
+                  
+
+                    hasRecipe4 = true;
+                }
+                break;
+                //avocado toast - did eggs instead of salt
+            case CraftableItem.RECIPE5:
+                if (item7 >= 2 && item8 >= 2 && item11 >= 2 )
+                {
+                    success = true;
+                    item7 -= 2;
+                    item8 -= 2;
+                    item11 -= 2;
+                    
+
+                    hasRecipe5 = true;
+                }
+                break;
+        }
+
+        return success;
+
+    }
+  
+}
