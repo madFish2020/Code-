@@ -1,0 +1,76 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Collectable : MonoBehaviour
+{
+ // inventory script 
+    public inventory.ResourceItem resourceType;
+
+    private void OnMouseDown()
+    {
+        switch (resourceType)
+        {
+            // adds one to inventory for Resource Item1 when user clicks on it
+            case inventory.ResourceItem.ITEM1:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item1++;
+                break;
+            // adds one to inventory for Resource Item2 when user clicks on it
+            case inventory.ResourceItem.ITEM2:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item2++;
+                break;
+            // adds one to inventory for Resource Item3 when user clicks on it
+            case inventory.ResourceItem.ITEM3:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item3++;
+                break;
+            // adds one to inventory for Resource Item4 when user clicks on it
+            case inventory.ResourceItem.ITEM4:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item4++;
+                break;
+            // adds one to inventory for Resource Item5 when user clicks on it
+            case inventory.ResourceItem.ITEM5:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item5++;
+                break;
+            // adds one to inventory for Resource Item6 when user clicks on it
+            case inventory.ResourceItem.ITEM6:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item6++;
+                break;
+            // adds one to inventory for Resource Item7 when user clicks on it
+            case inventory.ResourceItem.ITEM7:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item7++;
+                break;
+            // adds one to inventory for Resource Item8 when user clicks on it
+            case inventory.ResourceItem.ITEM8:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item8++;
+                break;
+            // adds one to inventory for Resource Item9 when user clicks on it
+            case inventory.ResourceItem.ITEM9:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item9++;
+                break;
+            // adds one to inventory for Resource Item10 when user clicks on it
+            case inventory.ResourceItem.ITEM10:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item10++;
+                break;
+            // adds one to inventory for Resource Item11 when user clicks on it
+            case inventory.ResourceItem.ITEM11:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item11++;
+                break;
+            // adds one to inventory for Resource Item12 when user clicks on it
+            case inventory.ResourceItem.ITEM12:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item12++;
+                break;
+            // adds one to inventory for Resource Item13 when user clicks on it
+            case inventory.ResourceItem.ITEM13:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item13++;
+                break;
+            // adds one to inventory for Resource Item14 when user clicks on it
+            case inventory.ResourceItem.ITEM14:
+                GameObject.FindGameObjectWithTag("Inventory").GetComponent<inventory>().item14++;
+                break;
+        }
+        // destroys gameobject after item added to inventory count for the item the user clicked on
+        Destroy(gameObject);
+    
+    }
+   
+}
