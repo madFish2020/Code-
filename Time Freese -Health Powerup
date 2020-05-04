@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PowerUp : MonoBehaviour
+{
+    public float multiplier = 1.4f; // multiplier during powerup time
+    public float duration = 5f; // duration to 5 seconds for power up time length
+    public AudioSource sound; // sound 
+    private void OnTriggerEnter(Collider other)
+    {
+    // checks for player tag 
+        if (other.CompareTag("Player"))
+        {
+        // starts couroutine for the powerup
+            StartCoroutine(Pickup(other));
+            
+        }
+       
+        
+            
+    }
+     IEnumerator Pickup(Collider player)
+    {
+        
+        sound.Play(); //play sound
+        PlayerStats stats = player.GetComponent<PlayerStats>(); // gets health from player stats
+        stats.health *= multiplier; // adds multiplier to health
+        Destroy(gameObject); // destroys game object
+        yield return new WaitForSeconds(duration); // waits for duration 
+        stats.health /= multiplier; //sets back to regular health
+        
+    }
+    
+
+
+
+}
