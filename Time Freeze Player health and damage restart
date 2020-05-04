@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class PlayerStats : MonoBehaviour
+{
+    public float health = 100f; //sets health to 100
+    public Slider healthBar; // healthbar (not implemented in game - Britany Luong)
+    public AudioSource sound; //sound (Britney Luong)
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Damage") // checks for damage tag
+        {
+            health = health - 20; // subtracts 20 from player health
+            healthBar.value = health;v// for health bar (Britney Luong)
+            sound.Play();// play sound (Britany Luong)
+            
+            if(health <= 0) // checks if health value is less or equal than 0
+            {
+                SceneManager.LoadScene(0); // if so it reloads the level
+
+            }
+
+
+        }
+    }
+}
