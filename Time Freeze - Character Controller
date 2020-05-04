@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class player : MonoBehaviour
+{
+    private Rigidbody rb; // rigidbody
+    public float speed = 3; // sets player speed to 3 
+    public LayerMask groundLayers; // sets uplayermask for ground check
+
+    public float jumpForce = 7; //sets jump force on player to 7
+
+    public SphereCollider col; // sphereCollider 
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+    //sets up rb and collider 
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<SphereCollider>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    // move for vertical and horizontal directions 
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
+        rb.AddForce(movement * speed);
+ 
+      // player jump movement 
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+
+    }
+    //checks to see if the player is on the ground to prevent infinite jumping
+    private bool IsGrounded()
+    { 
+        return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x,
+            col.bounds.min.y, col.bounds.center.z), col.radius * .9f, groundLayers);
+       
+
+    }
+}
