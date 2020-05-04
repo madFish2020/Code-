@@ -2,47 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class player : MonoBehaviour
+public class Move : MonoBehaviour
 {
-    private Rigidbody rb; // rigidbody
-    public float speed = 3; // sets player speed to 3 
-    public LayerMask groundLayers; // sets uplayermask for ground check
+    public CharacterController controller; //sets up controller
+    public float speed = 12f; //sets speed to 12 
+    public float gravity = -9.81f; // sets gravity
+    public float jumpForce = 3f; // jump force to 3
 
-    public float jumpForce = 7; //sets jump force on player to 7
+    public Transform groundCheck; // ground check
+    public float groundDistance = 0.4f; // distance from ground
+    public LayerMask groundMask; // layer mask for ground check
 
-    public SphereCollider col; // sphereCollider 
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-    //sets up rb and collider 
-        rb = GetComponent<Rigidbody>();
-        col = GetComponent<SphereCollider>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    // move for vertical and horizontal directions 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
-        rb.AddForce(movement * speed);
+    Vector3 velocity; //velocity
+    bool isGrounded; // bool for groundcheck
  
-      // player jump movement 
-        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
+
+  void Update()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if(isGrounded && velocity.y < 0)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            velocity.y = -2f;
         }
 
-    }
-    //checks to see if the player is on the ground to prevent infinite jumping
-    private bool IsGrounded()
-    { 
-        return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x,
-            col.bounds.min.y, col.bounds.center.z), col.radius * .9f, groundLayers);
-       
 
+        float x = Input.GetAxis("Horizontal"); // horizontal move
+        float z = Input.GetAxis("Vertical"); // veritcal move
+
+        Vector3 move = transform.right * x + transform.forward * z; // movement vector3  
+        controller.Move(move * speed * Time.deltaTime); // controller movement 
+        if(Input.GetButtonDown("Jump") && isGrounded) // for jumping
+        {
+            velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+        }
+
+        velocity.y += gravity * Time.deltaTime; // add velocity gravity 
+
+        controller.Move(velocity * Time.deltaTime); add velocity controller 
     }
 }
