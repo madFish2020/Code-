@@ -1,0 +1,39 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class JumpPower : MonoBehaviour
+{
+    public float multiplier = 2f; // sets mutliplier for boost
+    public float duration = 4f; // duration for power to last
+    public AudioSource sound; // sound
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.CompareTag("Player")) // checks tag
+        {
+
+            StartCoroutine(Pickup(other)); // starts coroutine for power
+        }
+
+
+
+    }
+
+
+    IEnumerator Pickup(Collider player)
+    {
+        sound.Play(); //play sound 
+        Move jump = player.GetComponent<Move>(); // gets jump from player controller
+        jump.jumpForce *= multiplier; // adds multiplier
+        GetComponent<MeshRenderer>().enabled = false; // turns off mesh renderer
+        GetComponent<Collider>().enabled = false; // turns off collider 
+        yield return new WaitForSeconds(duration); // wait for duration
+        jump.jumpForce /= multiplier; // resets jump force 
+        Destroy(gameObject); // destroys object
+
+    }
+
+
+}
