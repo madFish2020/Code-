@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RunPower : MonoBehaviour
+{
+    public float multiplier = 2f; // multiplier for power
+    public float duration = 4f; //time power lasts
+    public AudioSource sound; // Audio 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) // checks player tag
+        {
+            StartCoroutine(Pickup(other)); // starts Coroutine for power
+
+        }
+
+
+
+    }
+    IEnumerator Pickup(Collider player)
+    {
+        sound.Play(); // play sound
+        Move speed = player.GetComponent<Move>(); // gets speed from player controller
+        speed.speed *= multiplier; // adds multiplier
+        GetComponent<MeshRenderer>().enabled = false; // turns off renderer
+        yield return new WaitForSeconds(duration); // wait for duration
+        speed.speed /= multiplier; // resets speed
+        Destroy(gameObject); // destroys gameObject
+    }
+
+
+}
+
